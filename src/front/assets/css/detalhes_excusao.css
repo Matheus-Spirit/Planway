@@ -1,0 +1,100 @@
+/* Título principal */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Container de detalhes */
+.container {
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 3rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-control:focus {
+    border-color: #17a2b8;
+    box-shadow: 0 0 8px rgba(23, 162, 184, 0.5);
+}
+
+.form-group label {
+    font-size: 1.1rem;
+    color: #495057;
+}
+
+/* Botões */
+.btn {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/* Ajustes para telas pequenas */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        font-size: 1rem;
+    }
+}

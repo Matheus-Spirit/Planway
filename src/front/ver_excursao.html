@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/turismo-removebg.png">
+    <title>PlanWay - Detalhes da Excursão</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/ver_excursao.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <a class="navbar-brand" href="index.html">PlanWay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="home.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reports">Relatórios</a></li>
+                <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html" onclick="logout()">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-4" id="title">Carregando...</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="excursion-info-box">
+                    <h5><strong>Descrição:</strong></h5>
+                    <p id="description">Carregando...</p>
+                </div>
+                <div class="excursion-info-box">
+                    <h5><strong>Período:</strong></h5>
+                    <p id="startDate">Carregando...</p> até <p id="endDate">Carregando...</p>
+                </div>
+                <div class="excursion-info-box">
+                    <h5><strong>Local:</strong></h5>
+                    <p id="location">Carregando...</p>
+                </div>
+                <div class="excursion-info-box">
+                    <h5><strong>Preço:</strong></h5>
+                    <p id="price">Carregando...</p>
+                </div>
+                <div class="excursion-info-box">
+                    <h5><strong>Quantidade Maxima:</strong></h5>
+                    <p id="qtdPessoas">Carregando...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão para participar -->
+        <div class="text-center mt-4">
+            <button id="participateButton" class="btn btn-primary">Participar da Excursão</button>
+        </div>
+
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Deseja participar da excursão?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Você tem certeza de que deseja se inscrever nesta excursão?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-primary" id="confirmParticipateButton">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./assets/js/ver_excursao.js"></script>
+</body>
+
+</html>

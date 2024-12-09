@@ -1,0 +1,88 @@
+
+/* Estilo para as caixas de informações da excursão */
+.excursion-info-box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.excursion-info-box h5 {
+    font-size: 1.25rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.excursion-info-box p {
+    font-size: 1rem;
+    color: #495057;
+}
+
+/* Botão de logout */
+#logoutButton {
+    background-color: #dc3545;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: #c82333;
+    transition: 0.3s ease;
+}
+
+/* Modal de Confirmação */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-body {
+    font-size: 1rem;
+    color: #495057;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0069d9;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .excursion-info-box {
+        padding: 15px;
+    }
+
+    .excursion-info-box h5 {
+        font-size: 1.1rem;
+    }
+
+    .excursion-info-box p {
+        font-size: 0.95rem;
+    }
+
+    #logoutButton {
+        font-size: 1rem;
+    }
+}

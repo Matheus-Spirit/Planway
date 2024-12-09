@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/turismo-removebg.png">
+    <title>PlanWay - Cadastro de Excursão</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/cad_excursao.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="index.html">PlanWay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="home.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reports">Relatórios</a></li>
+                <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html" onclick="logout()">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Cadastro de Excursão</h1>
+
+        <form id="excursionForm">
+            <div class="form-group">
+                <label for="title">Nome da Excursão</label>
+                <input type="text" id="title" class="form-control" required placeholder="Ex: Praia Grande">
+                <div class="invalid-feedback">Por favor, insira o nome da excursão.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea id="description" class="form-control" rows="3" required placeholder="Ex: Ir para a praia"></textarea>
+                <div class="invalid-feedback">Por favor, insira uma descrição da excursão.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Data de Início</label>
+                <input type="date" id="startDate" class="form-control" required>
+                <div class="invalid-feedback">Por favor, selecione uma data de início.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">Data de Fim</label>
+                <input type="date" id="endDate" class="form-control" required>
+                <div class="invalid-feedback">Por favor, selecione uma data de fim.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Local</label>
+                <input type="text" id="location" class="form-control" required placeholder="Ex: Rio de Janeiro">
+                <div class="invalid-feedback">Por favor, insira o local da excursão.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Valor (R$)</label>
+                <input type="number" id="price" class="form-control" min="0" step="0.01" required placeholder="Ex: R$600,00">
+                <div class="invalid-feedback">Por favor, insira um valor válido.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="additionalServices">Serviços Adicionais (Opcional)</label>
+                <input type="text" id="additionalServices" class="form-control"
+                    placeholder="Ex: Guia turístico, Transporte">
+            </div>
+
+            <div class="form-group">
+                <label for="additionalServices">Quantidade Maxima de pessoas</label>
+                <input type="text" id="qtdPessoas" class="form-control"
+                    placeholder="Ex: 10">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cadastrar Excursão</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./assets/js/cad_excursao.js"></script>
+</body>
+
+</html>

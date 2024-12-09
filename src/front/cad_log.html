@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/img/turismo-removebg.png" />
+    <title>PlanWay</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/cad_log.css">
+</head>
+
+<body>
+    <!-- Vídeo de fundo -->
+    <video autoplay loop muted class="background-video">
+        <source src="./assets/img/videos/menu-video.mp4" type="video/mp4">
+    </video>
+    <!-- Formulário de login/cadastro -->
+    <div class="form-container">
+        <main class="form-box">
+            <h1 id="form-title" class="mb-4">Login</h1>
+            <form id="auth-form">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="cpfCnpj" placeholder="CPF / CNPJ" required>
+                </div>
+                <div class="form-group input-icon">
+                    <input type="password" class="form-control" id="password" placeholder="Senha" required>
+                    <span class="icon" id="toggle-password">👁️</span>
+                </div>
+                <div class="form-group" id="confirm-password-group" style="display: none;">
+                    <input type="password" class="form-control" id="confirm-password" placeholder="Confirmar Senha">
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" id="keep-login"> Manter Login
+                        </label>
+                    </div>
+                    <div class="col text-right">
+                        <a href="#" class="link-cadastro">Esqueceu sua senha?</a>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p id="toggle-text">
+                        Ainda não possui uma conta? <a href="#" id="toggle-layout" class="link-cadastro">Cadastrar</a>
+                    </p>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="submit-btn">Entrar</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script type="module" src="./assets/js/cad_log.js"></script>
+</body>
+
+</html>

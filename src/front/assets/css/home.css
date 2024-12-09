@@ -1,0 +1,61 @@
+
+        /* Carrossel */
+        #carouselExampleIndicators {
+            margin-bottom: 2rem;
+        }
+
+        .carousel-indicators li {
+            background-color: #17a2b8;
+        }
+        h4{
+            justify-content: center;
+            align-items: center;
+            text-align: center; 
+        }
+
+        .carousel-item img {
+            max-height: 450px;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            background-color: #17a2b8;
+        }
+
+        /* Dashboard Cards */
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+        }

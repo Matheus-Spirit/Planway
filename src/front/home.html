@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+ <head>
+    <meta charset="utf-8" self_closing="True"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" self_closing="True"/>
+    <link href="./assets/img/turismo-removebg.png" rel="icon" self_closing="True"/>
+    <title>PlanWay - Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" self_closing="True"/>
+    <link href="./assets/css/style.css" rel="stylesheet" self_closing="True"/>
+    <link href="./assets/css/home.css" rel="stylesheet" self_closing="True"/>
+    <link href="./assets/css/ver_excursao.css" rel="stylesheet" self_closing="True"/>
+ </head>
+ 
+ 
+ <body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+   <a class="navbar-brand" href="index.html">PlanWay</a>
+   <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarNav" data-toggle="collapse">
+    <span class="navbar-toggler-icon"></span>
+   </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="home.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html" onclick="logout()">Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Bem-vindo(a) ao PlanWay!</h1>
+            </div>
+        </div>
+    </div><br>
+    <h4>Veja as excursões mais pesquisadas</h4>
+    <!-- Carrossel de Excursões -->
+    <div id="carouselExampleIndicators" class="carousel slide mt-5" data-ride="carousel">
+        <div class="col text-center">
+        </div>
+        <ol class="carousel-indicators" id="carouselIndicators">
+            <!-- Os indicadores podem ser inseridos aqui -->
+        </ol>
+        <div class="carousel-inner" id="carouselItems">
+            <!-- Os itens do carrossel serão inseridos aqui -->
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+
+    <section id="dashboard" class="mt-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Painel de Controle</h2>
+            <div class="row justify-content-center align-items-center g-4">
+                <!-- Calendário -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-calendar-alt fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Calendário</h5>
+                            <p class="card-text">Verifique as datas das suas atividades.</p>
+                            <a href="calendario.html" class="btn btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Pesquisar -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Pesquisar</h5>
+                            <p class="card-text">Pesquise as excursões com facilidade.</p>
+                            <a href="pesquisa.html" class="btn btn btn-primary">Pesquisar</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Cadastrar Excursão -->
+                <div class="col-md-4 col-sm-6" id="cadastrarSection">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-plus-circle fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Cadastrar Excursão</h5>
+                            <p class="card-text">Cadastre as suas excursões de forma simples.</p>
+                            <a href="cad_excursao.html" class="btn btn btn-primary">Cadastrar</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Ver Excursões -->
+                <div class="col-md-4 col-sm-6" id="verExcursaoSection">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-list fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Ver Excursões</h5>
+                            <p class="card-text">Veja as excursões cadastradas facilmente.</p>
+                            <a href="pesquisa_ex.html" class="btn btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Excursões Compradas -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <i class="fas fa-shopping-cart fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Excursões Compradas</h5>
+                            <p class="card-text">Visualize as excursões que você comprou.</p>
+                            <a href="ver_venda.html" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Participação -->
+                <div class="col-md-12" id="participationSection">
+                    <!-- Onde vai aparecer as informações da excursão -->
+                </div>
+            </div>
+        </div>
+    </section><br>
+
+    <footer class="footer">
+        <p>&copy; 2024 PlanWay. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="./assets/js/home.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

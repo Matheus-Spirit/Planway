@@ -1,0 +1,83 @@
+/* Estilo do campo de pesquisa */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    padding: 1rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #17a2b8;
+    box-shadow: 0 0 10px #1574c4;
+}
+
+/* Estilo da lista de excursões */
+#excursionsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap:2rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(1, 10, 10, 0.85);
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+/* Ajustes de responsividade */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+        margin-right: 1rem;
+    }
+
+    #excursionsList {
+        grid-template-columns: 1fr; 
+    }
+}

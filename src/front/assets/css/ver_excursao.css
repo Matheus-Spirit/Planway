@@ -1,0 +1,21 @@
+/* Estilo para a caixa de informações */
+.excursion-info-box {
+    background-color: #1574c4;
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    text-align: center;
+}
+
+.excursion-info-box h5 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.excursion-info-box p {
+    margin: 5px 0;
+    font-size: 1em;
+}
