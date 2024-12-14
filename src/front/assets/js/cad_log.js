@@ -24,8 +24,8 @@ function toggleLayout() {
     document.getElementById('submit-btn').textContent = isLogin ? 'Entrar' : 'Cadastrar';
     document.getElementById('confirm-password-group').style.display = isLogin ? 'none' : 'block';
     document.getElementById('toggle-text').innerHTML = isLogin
-        ? 'Ainda não possui uma conta? <a href="#" id="toggle-layout" class="link-cadastro">Cadastrar</a>'
-        : 'Já possui uma conta? <a href="#" id="toggle-layout" class="link-cadastro">Login</a>';
+        ? 'Ainda não possui uma conta? <a id="toggle-layout" class="link-cadastro">Cadastrar</a>'
+        : 'Já possui uma conta? <a id="toggle-layout" class="link-cadastro">Login</a>';
 };
 
 // Muda visibilidade das senhas
