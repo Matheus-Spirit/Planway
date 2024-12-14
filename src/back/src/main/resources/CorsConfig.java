@@ -11,11 +11,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Permite todas as rotas
-                        .allowedOrigins("https://planway-production.up.railway.app") // Domínio do Vercel
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos HTTP permitidos
-                        .allowedHeaders("*") // Permite todos os headers
-                        .allowCredentials(true); // Permite envio de cookies
+                registry.addMapping("/**")
+                        .allowedOrigins("https://planway-one.vercel.app")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") 
+                        .allowedHeaders("*") 
+                        .allowCredentials(true);
             }
         };
     }
