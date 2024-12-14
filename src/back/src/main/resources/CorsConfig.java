@@ -13,8 +13,7 @@ public class CorsConfig {
                 registry.addMapping("/**") // Permitir todas as rotas
                         .allowedOrigins("https://planway-one.vercel.app") // Domínio do Vercel
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
-                        .allowedHeaders("*") // Headers permitidos
-                        .allowCredentials(true); // Permitir credenciais
+                        .allowedHeaders("*"); // Headers permitidos
             }
         };
     }
