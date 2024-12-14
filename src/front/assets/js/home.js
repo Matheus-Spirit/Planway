@@ -62,7 +62,7 @@ window.onload = async function () {
     const carouselItemsContainer = document.getElementById('carouselItems');
 
     try {
-        const response = await fetch('http://localhost:8081/api/excursoes/listExcursoes', {
+        const response = await fetch('https://planway-production.up.railway.app/api/excursoes/listExcursoes', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

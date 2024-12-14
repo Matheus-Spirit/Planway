@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function getVendaDetails(email) {
         try {
-            const response = await fetch(`http://localhost:8081/api/vendas/listVenda/${email}`, {
+            const response = await fetch(`https://planway-production.up.railway.app/api/vendas/listVenda/${email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("logoutButton").addEventListener("click", function () {
         removeParticipantFromLocalStorage(userEmail);
 
-        fetch(`http://localhost:8081/api/vendas/deleteVenda/${userEmail}`, {
+        fetch(`https://planway-production.up.railway.app/api/vendas/deleteVenda/${userEmail}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

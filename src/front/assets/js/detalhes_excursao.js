@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("excursoesPast", JSON.stringify(pastExcursions));
 
             try {
-                const response = await fetch(`http://localhost:8081/api/excursoes/delete/${excursionId}`, {
+                const response = await fetch(`https://planway-production.up.railway.app/api/excursoes/delete/${excursionId}`, {
                     method: 'DELETE',
                 });
 

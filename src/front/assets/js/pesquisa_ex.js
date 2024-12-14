@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch('http://localhost:8081/api/excursoes/listExcursoes')
+        fetch('https://planway-production.up.railway.app/api/excursoes/listExcursoes')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar excursões da API');

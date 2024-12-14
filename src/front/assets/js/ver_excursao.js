@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para buscar os detalhes da excursão
     async function getExcursionDetails(id) {
         try {
-            const response = await fetch(`http://localhost:8081/api/excursoes/listExcursao/${id}`);
+            const response = await fetch(`https://planway-production.up.railway.app/api/excursoes/listExcursao/${id}`);
             if (!response.ok) {
                 throw new Error("Não foi possível carregar os detalhes da excursão.");
             }
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localExcursao: excursionData.local,
             };
     
-            const response = await fetch('http://localhost:8081/api/vendas/cadastro', {
+            const response = await fetch('http://planway-production.up.railway.app/api/vendas/cadastro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

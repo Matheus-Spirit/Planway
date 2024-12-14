@@ -72,7 +72,7 @@ async function cadastro() {
     const emailUser = localStorage.setItem('userEmail', email);
 
     try {
-        const response = await fetch("http://localhost:8081/api/usuarios/cadastrar", {
+        const response = await fetch("https://planway-production.up.railway.app/api/usuarios/cadastrar", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ async function login() {
     let documento = document.getElementById('cpfCnpj').value;
 
     try {
-        const response = await fetch("http://localhost:8081/api/usuarios/login", {
+        const response = await fetch("https://planway-production.up.railway.app/api/usuarios/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

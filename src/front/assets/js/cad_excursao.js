@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = getFormData();
 
-        fetch('http://localhost:8081/api/excursoes', {
+        fetch('https://planway-production.up.railway.app/api/excursoes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

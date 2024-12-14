@@ -124,7 +124,7 @@ async function salvarEvento() {
     };
 
     try {
-        const response = await fetch('http://localhost:8081/api/roteiro/criarRoteiro', {
+        const response = await fetch('https://planway-production.up.railway.app/api/roteiro/criarRoteiro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -153,7 +153,7 @@ async function salvarEvento() {
 // Função para listar todos os roteiros
 async function listarRoteiros() {
     try {
-        const response = await fetch('http://localhost:8081/api/roteiro/listRoteiros', {
+        const response = await fetch('https://planway-production.up.railway.app/api/roteiro/listRoteiros', {
             method: 'GET',
         });
 
@@ -212,7 +212,7 @@ async function salvarRoteiroAtualizado() {
     };
 
     try {
-        const response = await fetch(`http://localhost:8081/api/roteiro/updateRoteiro/${id}`, {
+        const response = await fetch(`https://planway-production.up.railway.app/api/roteiro/updateRoteiro/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -237,7 +237,7 @@ async function salvarRoteiroAtualizado() {
 // Função para excluir um roteiro
 async function excluirRoteiro(id) {
     try {
-        const response = await fetch(`http://localhost:8081/api/roteiro/deleteRoteiro/${id}`, {
+        const response = await fetch(`https://planway-production.up.railway.app/api/roteiro/deleteRoteiro/${id}`, {
             method: 'DELETE',
         });
 
