@@ -22,39 +22,32 @@ public class SecurityConfig {
     private final UserDetailsServiceImp userDetailService;
     private final JWTUtil jwtUtil;
 
-    // Endpoints públicos GET e POST
-    private static final String[] PUBLIC_MATCHERS_GET = {
-        "/health"
-    };
-
-    private static final String[] PUBLIC_MATCHERS_POST = {
-        "/api/usuarios/cadastrar",
-        "/api/usuarios/login"
-    };
-
-    private static final String[] PUBLIC_MATCHERS = {
-        "/"
-    };
-
     public SecurityConfig(UserDetailsServiceImp userDetailService, JWTUtil jwtUtil) {
         this.userDetailService = userDetailService;
         this.jwtUtil = jwtUtil;
     }
 
+    private static final String[] PUBLIC_MATCHERS_GET = { "/health" };
+    private static final String[] PUBLIC_MATCHERS_POST = {
+            "/api/usuarios/cadastrar",
+            "/api/usuarios/login"
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable() // Desabilita CORS e CSRF
+        // Evitar múltiplas chamadas para build()
+        http.csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .authorizeHttpRequests(authz -> authz
-                    .requestMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll() // Permite health check
-                    .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll() // Permite endpoints POST
-                    .requestMatchers(PUBLIC_MATCHERS).permitAll() // Outros endpoints públicos
-                    .anyRequest().authenticated() // Resto exige autenticação
+                        .requestMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+                        .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless (sem sessões)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
-        // Adiciona o filtro JWT
+        // Adicionar o filtro JWT
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(http), jwtUtil));
 
         return http.build();
