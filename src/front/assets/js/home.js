@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmail = localStorage.getItem("userEmail");
     const excursions = JSON.parse(localStorage.getItem("excursoes")) || [];
 
-    // Controle de exibição conforme o tipo de usuário
     if (userType === 'cliente') {
         document.getElementById('cadastrarSection').style.display = 'none';
         document.getElementById('verExcursaoSection').style.display = 'none';
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para formatar datas
+    // Função para formatar as datas
     function formatDate(dateString) {
         if (!dateString) return "Data não disponível";
         const date = new Date(dateString);
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
     checkParticipation();
 });
 
-// Carregar excursões do localStorage e exibir no carousel
 window.onload = function () {
     const carouselItemsContainer = document.getElementById('carouselItems');
     const storedExcursions = JSON.parse(localStorage.getItem("excursoes")) || [];
@@ -79,11 +77,12 @@ window.onload = function () {
                 <div class="excursion-info-box w-50">
                     <h5>${excursion.nome}</h5>
                     <p><strong>Local:</strong> ${excursion.local}</p>
-                    <p><strong>Preço:</strong> R$ ${excursion.valor.toFixed(2).replace('.', ',')}</p>
+                    <p><strong>Preço:</strong> R$ ${excursion.valor.toFixed(2)}</p>
                     <a href="ver_excursao.html?id=${excursion.id}" class="btn btn-primary">Saiba Mais</a>
                 </div>
             </div>
         `;
+
         carouselItemsContainer.innerHTML += carouselItem;
     });
 };

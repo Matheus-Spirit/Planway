@@ -87,9 +87,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const commentBox = document.createElement("div");
             commentBox.className = "card mb-3";
 
-            const ratingColor = comment.avaliacao < 3 ? "#F07771" : comment.avaliacao === 3 ? "#e2e3e5" : "#71EF72";
+            const ratingColor = comment.avaliacao < 3
+                ? "#F07771" // Vermelho
+                : comment.avaliacao === 3
+                ? "#e2e3e5" // Cinza
+                : "#71EF72"; // Verde
 
             commentBox.style.backgroundColor = ratingColor;
+
             commentBox.innerHTML = `
                 <div class="card-body">
                     <h5 class="card-title">${"★".repeat(comment.avaliacao)}${"☆".repeat(5 - comment.avaliacao)}</h5>
@@ -104,10 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para calcular o percentual de excursões reservadas
     function calculateReservedExcursionsPercentage(excursion) {
-        const currentParticipantsCount = excursion.participantes.length;
-        const currentCapacity = parseInt(excursion.quantidadePessoas, 10);
+        const currentParticipantsCount = excursion.participantes.length || 0;
+        const currentCapacity = parseInt(excursion.quantidadePessoas, 10) || 0;
 
-        const currentPercentage = (currentParticipantsCount / currentCapacity) * 100;
+        const currentPercentage = currentCapacity > 0
+            ? (currentParticipantsCount / currentCapacity) * 100
+            : 0;
 
         document.getElementById("currentExcursionPercentage").textContent =
             `Percentual desta excursão reservada: ${currentPercentage.toFixed(2)}% (${currentParticipantsCount}/${currentCapacity})`;
@@ -127,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `Percentual de reclamações: ${complaintPercentage.toFixed(2)}% (${negativeComments}/${totalComments})`;
     }
 
-    // Função para finalizar a excursão (somente local)
+    // Função para finalizar a excursão localmente
     document.getElementById("finishExcursionBtn").addEventListener("click", function () {
         const storedExcursions = JSON.parse(localStorage.getItem("excursoes")) || [];
         const pastExcursions = JSON.parse(localStorage.getItem("excursoesPast")) || [];
@@ -141,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("excursoes", JSON.stringify(storedExcursions));
             localStorage.setItem("excursoesPast", JSON.stringify(pastExcursions));
 
-            alert("Excursão finalizada com sucesso e movida para o histórico!");
+            alert("Excursão finalizada e movida para 'excursões passadas'.");
             window.location.href = "pesquisa.html";
         } else {
             alert("Excursão não encontrada na lista atual.");
