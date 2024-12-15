@@ -51,9 +51,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors() // Habilita CORS usando a configuração do WebConfig
-            .and()
-            .csrf().disable()
+        http.cors().and().csrf().disable()
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
@@ -62,6 +60,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
+    
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager, this.jwtUtil));
         return http.build();
     }
