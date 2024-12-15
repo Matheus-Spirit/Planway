@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    ajustarInterface()
+    const tipoUsuario = sessionStorage.getItem("userType");
     const monthBR = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -131,28 +131,40 @@ document.addEventListener('DOMContentLoaded', function() {
         eventList.innerHTML = '';
         events.forEach((event, index) => {
             let li = document.createElement('li');
-            li.innerHTML = `Data: ${event.startDate} a ${event.endDate}, Título: ${event.title}, Local: ${event.location}
-                            <button onclick="editEvent(${index})" class="btn btn-outline-primary">Editar</button>
-                            <button onclick="deleteEvent(${index})" class="btn btn-outline-danger">Excluir</button>
-                            <button onclick="openActivityModal(${index})" class="btn btn-outline-secondary">Adicionar Atividade</button>`;
-            
+            li.innerHTML = `Data: ${event.startDate} a ${event.endDate}, Título: ${event.title}, Local: ${event.location}`;
+    
+            if (tipoUsuario === 'agencia') {
+                li.innerHTML += `
+                    <button onclick="editEvent(${index})" class="btn btn-outline-primary">Editar</button>
+                    <button onclick="deleteEvent(${index})" class="btn btn-outline-danger">Excluir</button>
+                    <button onclick="openActivityModal(${index})" class="btn btn-outline-secondary">Adicionar Atividade</button>
+                `;
+            }
+    
             // Adicionar lista de atividades
             if (event.activities.length > 0) {
                 const activityList = document.createElement('ul');
                 event.activities.forEach((activity, activityIndex) => {
                     let activityItem = document.createElement('li');
-                    activityItem.innerHTML = `Atividade: ${activity.description}, Início: ${activity.start}, Fim: ${activity.end}, Endereço: ${activity.address}
-                        <button onclick="editActivity(${index}, ${activityIndex})" class="btn btn-outline-primary">Editar Atividade</button>
-                        <button onclick="deleteActivity(${index}, ${activityIndex})" class="btn btn-outline-danger">Excluir Atividade</button>`;
-
+                    activityItem.innerHTML = `Atividade: ${activity.description}, Início: ${activity.start}, Fim: ${activity.end}, Endereço: ${activity.address}`;
+    
+                    if (tipoUsuario === 'agencia') {
+                        activityItem.innerHTML += `
+                            <button onclick="editActivity(${index}, ${activityIndex})" class="btn btn-outline-primary">Editar Atividade</button>
+                            <button onclick="deleteActivity(${index}, ${activityIndex})" class="btn btn-outline-danger">Excluir Atividade</button>
+                        `;
+                    }
+    
                     activityList.appendChild(activityItem);
                 });
+    
                 li.appendChild(activityList);
             }
-            
+    
             eventList.appendChild(li);
         });
     }
+    
 
     // Funções de editar o Roteiro 
     window.editEvent = function(index) {
@@ -319,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (tipoUsuario === "cliente") {
         const calendario = document.querySelector(".calendario");
             calendario.style.display = "none";
+        }
     }
-
-}
+    window.onload = ajustarInterface();
 });

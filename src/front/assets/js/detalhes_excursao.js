@@ -8,15 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!excursionId) {
             alert("ID da excursão não fornecido.");
-            window.location.href = "pesquisa.html";
-            return;
-        }
-
-        excursionId = parseInt(excursionId, 10);
-
-        if (isNaN(excursionId)) {
-            alert("ID da excursão inválido.");
-            window.location.href = "pesquisa.html";
+            window.location.href = "pesquisa_ex.html";
             return;
         }
 
@@ -42,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             calculateReservedExcursionsPercentage(excursion);
         } else {
             alert("Excursão não encontrada.");
-            window.location.href = "pesquisa.html";
+            window.location.href = "pesquisa_ex.html";
         }
     }
 
@@ -149,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("excursoesPast", JSON.stringify(pastExcursions));
 
             alert("Excursão finalizada e movida para 'excursões passadas'.");
-            window.location.href = "pesquisa.html";
+            window.location.href = "pesquisa_ex.html";
         } else {
             alert("Excursão não encontrada na lista atual.");
         }
