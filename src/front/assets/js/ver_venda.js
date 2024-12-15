@@ -6,41 +6,27 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    async function getVendaDetails(email) {
-        try {
-            const response = await fetch(`https://planway-production.up.railway.app/api/vendas/listVenda/${email}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+    // Função para buscar os detalhes da venda no localStorage
+    function getVendaDetails(email) {
+        const vendas = JSON.parse(localStorage.getItem("vendas")) || [];
+        const venda = vendas.find((v) => v.emailUsuario === email);
 
-            if (!response.ok) {
-                throw new Error("Venda não encontrada.");
-            }
-
-            const venda = await response.json();
+        if (venda) {
             console.log("Detalhes da venda:", venda);
-
-            if (venda && venda.nomeExcursao) {
-                const valor = venda.valor ? `R$ ${venda.valor.toFixed(2)}` : "Valor não disponível";
-                displayVendaDetails(venda, valor);
-            } else {
-                alert("Venda não encontrada ou dados incompletos.");
-            }
-        } catch (error) {
-            console.error(error);
-            alert("Erro ao carregar os detalhes da venda.");
+            const valor = venda.valor ? `R$ ${venda.valor.toFixed(2).replace('.', ',')}` : "Valor não disponível";
+            displayVendaDetails(venda, valor);
+        } else {
+            alert("Venda não encontrada.");
         }
     }
 
     // Exibir os detalhes da venda no HTML
     function displayVendaDetails(venda, valor) {
-        document.getElementById("vendaTitle").textContent = venda.nomeExcursao;
+        document.getElementById("vendaTitle").textContent = venda.nomeExcursao || "Excursão não encontrada";
         document.getElementById("excursionPrice").textContent = valor;
     }
 
-    // Função para remover o participante específico do localStorage
+    // Função para remover o participante das excursões no localStorage
     function removeParticipantFromLocalStorage(email) {
         const storedExcursions = JSON.parse(localStorage.getItem("excursoes")) || [];
 
@@ -48,10 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (excursion.participantes && Array.isArray(excursion.participantes)) {
                 const initialCount = excursion.participantes.length;
                 excursion.participantes = excursion.participantes.filter((participant) => participant !== email);
+
                 if (excursion.participantes.length !== initialCount) {
-                    console.log(
-                        `Participante ${email} removido da excursão com ID ${excursion.id}.`
-                    );
+                    console.log(`Participante ${email} removido da excursão com ID ${excursion.id}.`);
                 }
             }
         });
@@ -61,28 +46,32 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(`Participante ${email} removido das excursões no localStorage.`);
     }
 
+    // Função para remover a venda do localStorage
+    function removeVendaFromLocalStorage(email) {
+        let vendas = JSON.parse(localStorage.getItem("vendas")) || [];
+        const initialLength = vendas.length;
+
+        // Filtra a venda pelo email
+        vendas = vendas.filter((venda) => venda.emailUsuario !== email);
+
+        if (vendas.length !== initialLength) {
+            console.log(`Venda do usuário ${email} removida.`);
+            localStorage.setItem("vendas", JSON.stringify(vendas));
+            alert("Venda deletada com sucesso!");
+        } else {
+            alert("Nenhuma venda encontrada para deletar.");
+        }
+    }
+
+    // Evento de logout que remove o participante e a venda localmente
     document.getElementById("logoutButton").addEventListener("click", function () {
         removeParticipantFromLocalStorage(userEmail);
+        removeVendaFromLocalStorage(userEmail);
 
-        fetch(`https://planway-production.up.railway.app/api/vendas/deleteVenda/${userEmail}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    alert("Venda deletada com sucesso!");
-                    window.location.href = "home.html";
-                } else {
-                    alert("Erro ao deletar a venda. Tente novamente.");
-                }
-            })
-            .catch((error) => {
-                console.error("Erro ao tentar deletar a venda:", error);
-                alert("Erro ao tentar deletar a venda.");
-            });
+        // Redireciona para a página inicial
+        window.location.href = "home.html";
     });
 
+    // Carregar os detalhes da venda do usuário
     getVendaDetails(userEmail);
 });

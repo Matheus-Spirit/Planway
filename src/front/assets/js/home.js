@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userEmail = localStorage.getItem("userEmail");
     const excursions = JSON.parse(localStorage.getItem("excursoes")) || [];
 
+    // Controle de exibição conforme o tipo de usuário
     if (userType === 'cliente') {
         document.getElementById('cadastrarSection').style.display = 'none';
         document.getElementById('verExcursaoSection').style.display = 'none';
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para formatar as datas
+    // Função para formatar datas
     function formatDate(dateString) {
         if (!dateString) return "Data não disponível";
         const date = new Date(dateString);
@@ -58,49 +59,31 @@ document.addEventListener("DOMContentLoaded", function () {
     checkParticipation();
 });
 
-window.onload = async function () {
+// Carregar excursões do localStorage e exibir no carousel
+window.onload = function () {
     const carouselItemsContainer = document.getElementById('carouselItems');
+    const storedExcursions = JSON.parse(localStorage.getItem("excursoes")) || [];
 
-    try {
-        const response = await fetch('https://planway-production.up.railway.app/api/excursoes/listExcursoes', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Erro ao buscar excursões.');
-        }
-
-        const storedExcursions = await response.json();
-
-        if (storedExcursions.length === 0) {
-            carouselItemsContainer.innerHTML = '<h4>Nenhuma excursão cadastrada.<h4>';
-            return;
-        }
-
-        storedExcursions.forEach((excursion, index) => {
-            const imageUrl = excursion.imagem || 'https://via.placeholder.com/800x300?text=Sem+Imagem';
-            const isActiveClass = index === 0 ? 'active' : '';
-
-            const carouselItem = `
-                <div class="carousel-item ${isActiveClass}">
-                    <img src="${imageUrl}" class="d-block" style="width: 50%; margin: 0 auto;" alt="Excursão ${index + 1}">
-                    <div class="excursion-info-box w-50">
-                        <h5>${excursion.nome}</h5>
-                        <p><strong>Local:</strong> ${excursion.local}</p>
-                        <p><strong>Preço:</strong> R$ ${excursion.valor.toFixed(2)}</p>
-                        <a href="ver_excursao.html?id=${excursion.id}" class="btn btn-primary">Saiba Mais</a>
-                    </div>
-                </div>
-            `;
-
-            carouselItemsContainer.innerHTML += carouselItem;
-        });
-
-    } catch (error) {
-        console.error("Erro:", error);
-        carouselItemsContainer.innerHTML = '<p>Erro ao carregar excursões. Tente novamente mais tarde.</p>';
+    if (storedExcursions.length === 0) {
+        carouselItemsContainer.innerHTML = '<h4>Nenhuma excursão cadastrada.</h4>';
+        return;
     }
+
+    storedExcursions.forEach((excursion, index) => {
+        const imageUrl = excursion.imagem || 'https://via.placeholder.com/800x300?text=Sem+Imagem';
+        const isActiveClass = index === 0 ? 'active' : '';
+
+        const carouselItem = `
+            <div class="carousel-item ${isActiveClass}">
+                <img src="${imageUrl}" class="d-block" style="width: 50%; margin: 0 auto;" alt="Excursão ${index + 1}">
+                <div class="excursion-info-box w-50">
+                    <h5>${excursion.nome}</h5>
+                    <p><strong>Local:</strong> ${excursion.local}</p>
+                    <p><strong>Preço:</strong> R$ ${excursion.valor.toFixed(2).replace('.', ',')}</p>
+                    <a href="ver_excursao.html?id=${excursion.id}" class="btn btn-primary">Saiba Mais</a>
+                </div>
+            </div>
+        `;
+        carouselItemsContainer.innerHTML += carouselItem;
+    });
 };

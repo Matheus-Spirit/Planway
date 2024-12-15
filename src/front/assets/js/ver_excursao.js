@@ -7,20 +7,18 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Função para buscar os detalhes da excursão
-    async function getExcursionDetails(id) {
-        try {
-            const response = await fetch(`https://planway-production.up.railway.app/api/excursoes/listExcursao/${id}`);
-            if (!response.ok) {
-                throw new Error("Não foi possível carregar os detalhes da excursão.");
-            }
-            const excursion = await response.json();
-            console.log(excursion);
+    // Função para buscar os detalhes da excursão do localStorage
+    function getExcursionDetailsFromLocalStorage(id) {
+        const excursoes = JSON.parse(localStorage.getItem("excursoes")) || [];
+        const excursion = excursoes.find(e => e.id == id);
+
+        if (excursion) {
             displayExcursionDetails(excursion);
-            saveExcursionToLocalStorage(excursion); 
-        } catch (error) {
-            console.error(error);
-            alert("Erro ao carregar os detalhes da excursão.");
+            saveExcursionToLocalStorage(excursion);
+            window.excursionData = excursion;
+        } else {
+            alert("Excursão não encontrada.");
+            window.location.href = "pesquisa.html";
         }
     }
 
@@ -33,55 +31,61 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('location').textContent = excursion.local;
         document.getElementById('price').textContent = `R$ ${excursion.valor.toFixed(2)}`;
         document.getElementById('qtdPessoas').textContent = excursion.quantidadePessoas;
-        window.excursionData = excursion;
     }
 
     // Função para salvar a excursão no localStorage
     function saveExcursionToLocalStorage(excursion) {
         const excursoes = JSON.parse(localStorage.getItem("excursoes")) || [];
-        const existingExcursion = excursoes.find(e => e.id === excursion.id);
-    
-        if (!existingExcursion) {
-            excursion.participantes = excursion.participantes || []; 
-            if (excursion.participantes.length >= excursion.quantidadePessoas) {
-                alert("Número máximo de participantes atingido para esta excursão.");
-                return;
-            }
+        if (!excursoes.some(e => e.id === excursion.id)) {
             excursoes.push(excursion);
             localStorage.setItem("excursoes", JSON.stringify(excursoes));
-            console.log("Excursão salva no localStorage:", excursion);
         }
     }
-    
-    
 
-    // Função para adicionar um participante localmente
+    // Função para adicionar um participante à excursão
     function addParticipantToExcursion(excursionId, userEmail) {
         const excursoes = JSON.parse(localStorage.getItem("excursoes")) || [];
         const excursion = excursoes.find(e => e.id == excursionId);
-    
+
         if (excursion) {
             excursion.participantes = excursion.participantes || [];
             if (excursion.participantes.length >= excursion.quantidadePessoas) {
                 alert("Número máximo de participantes atingido para esta excursão.");
                 return;
             }
-    
-            const participantExists = excursion.participantes.some(p => p === userEmail);
-    
-            if (!participantExists) {
+
+            if (!excursion.participantes.includes(userEmail)) {
                 excursion.participantes.push(userEmail);
                 localStorage.setItem("excursoes", JSON.stringify(excursoes));
-                console.log(`Participante ${userEmail} adicionado à excursão ${excursionId}`);
                 alert("Você foi adicionado à excursão com sucesso!");
             } else {
                 alert("Você já está participando desta excursão.");
             }
         } else {
-            console.error("Excursão não encontrada no localStorage para adicionar participante:", excursionId);
+            alert("Excursão não encontrada.");
         }
-    } 
+    }
 
+    // Função para realizar a "venda" simulada
+    function realizarVenda(excursionData, userEmail) {
+        const venda = {
+            valor: excursionData.valor,
+            emailUsuario: userEmail,
+            nomeExcursao: excursionData.nome,
+            localExcursao: excursionData.local,
+            data: new Date().toLocaleString(),
+        };
+
+        // Salva vendas no localStorage
+        const vendas = JSON.parse(localStorage.getItem("vendas")) || [];
+        vendas.push(venda);
+        localStorage.setItem("vendas", JSON.stringify(vendas));
+
+        // Adiciona o participante na excursão
+        addParticipantToExcursion(excursionData.id, userEmail);
+    }
+
+    // Formata a data para exibição
     function formatDate(dateString) {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -90,61 +94,17 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${day}/${month}/${year}`;
     }
 
-    // Função para realizar a venda
-    async function realizarVenda(excursionData, userEmail) {
-        try {
-            const excursoes = JSON.parse(localStorage.getItem("excursoes")) || [];
-            const excursion = excursoes.find(e => e.id === excursionData.id);
-    
-            if (!excursion) {
-                alert("Erro: Excursão não encontrada.");
-                return;
-            }
-    
-            excursion.participantes = excursion.participantes || []; // Inicializa se estiver undefined
-    
-            if (excursion.participantes.length >= excursion.quantidadePessoas) {
-                alert("Não é possível realizar a venda. A excursão já atingiu o número máximo de participantes.");
-                return;
-            }
-    
-            const venda = {
-                valor: excursionData.valor,
-                emailUsuario: userEmail,
-                nomeExcursao: excursionData.nome,
-                localExcursao: excursionData.local,
-            };
-    
-            const response = await fetch('http://planway-production.up.railway.app/api/vendas/cadastro', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(venda),
-            });
-    
-            if (!response.ok) {
-                throw new Error("Erro ao realizar a venda.");
-            }
-    
-            const result = await response.json();
-            addParticipantToExcursion(excursionData.id, userEmail);
-            alert("Venda realizada com sucesso!");
-            console.log(result);
-        } catch (error) {
-            console.error(error);
-            alert("Erro ao realizar a venda.");
-        }
-    }
-
+    // Evento para abrir modal de confirmação
     document.getElementById('participateButton').addEventListener('click', function () {
         $('#confirmModal').modal('show');
     });
 
+    // Evento para confirmar participação
     document.getElementById('confirmParticipateButton').addEventListener('click', function () {
-        $('#confirmModal').modal('hide'); 
+        $('#confirmModal').modal('hide');
         realizarVenda(window.excursionData, userEmail);
     });
 
-    getExcursionDetails(excursionId);
+    // Carrega os detalhes da excursão
+    getExcursionDetailsFromLocalStorage(excursionId);
 });

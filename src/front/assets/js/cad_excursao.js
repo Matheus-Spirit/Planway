@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const excursionForm = document.getElementById('excursionForm');
-    const excursaoKey = "excursoes"; 
+    const excursaoKey = "excursoes";
     const userEmail = localStorage.getItem('userEmail');
+
+    // Função para gerar um ID único
+    function generateUniqueId() {
+        return 'excursao-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+    }
 
     // Função para recuperar os dados do formulário
     function getFormData() {
@@ -15,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const qtdPessoas = document.getElementById('qtdPessoas').value;
 
         return {
+            id: generateUniqueId(), // Gera um ID único
             nome: title,
             descricao: description,
             dataInicio: startDate,
@@ -27,58 +33,33 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
-    // Função para salvar os dados no localStorage com ID correto
-    function saveToLocalStorageWithId(excursionData, id) {
+    // Função para salvar os dados no localStorage
+    function saveToLocalStorage(excursionData) {
         const existingExcursoes = JSON.parse(localStorage.getItem(excursaoKey)) || [];
-        const existingExcursionIndex = existingExcursoes.findIndex(e => e.id === id);
-        if (existingExcursionIndex !== -1) {
-            existingExcursoes[existingExcursionIndex] = { ...excursionData, id };
-        } else {
-            existingExcursoes.push({ ...excursionData, id });
-        }
-
-        localStorage.setItem(excursaoKey, JSON.stringify(existingExcursoes));
-        console.log("Excursão salva no localStorage:", { ...excursionData, id });
+        existingExcursoes.push(excursionData); // Adiciona a nova excursão
+        localStorage.setItem(excursaoKey, JSON.stringify(existingExcursoes)); // Salva no localStorage
+        console.log("Excursão salva no localStorage:", excursionData);
     }
 
-    // Função para enviar os dados para a API e salvar no localStorage
+    // Função para manipular o envio do formulário
     function submitFormData(event) {
         event.preventDefault();
 
         const documento = localStorage.getItem('userDocumento');
 
+        // Verificação se o usuário é uma agência
         if (!documento || documento.length !== 14) {
             alert('Você deve ser uma agência (CNPJ) para criar excursões.');
-            return; 
+            return;
         }
 
         const formData = getFormData();
+        saveToLocalStorage(formData);
 
-        fetch('https://planway-production.up.railway.app/api/excursoes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Erro ao criar excursão');
-                }
-                return response.json(); 
-            })
-            .then((data) => {
-                alert('Excursão criada com sucesso!');
-
-                saveToLocalStorageWithId(formData, data.id);
-
-                excursionForm.reset();
-            })
-            .catch((error) => {
-                console.error('Erro ao enviar dados para a API:', error);
-                alert('Erro ao cadastrar excursão. Tente novamente.');
-            });
+        alert('Excursão cadastrada com sucesso!');
+        excursionForm.reset();
     }
 
+    // Adiciona o evento de submissão
     excursionForm.addEventListener('submit', submitFormData);
 });

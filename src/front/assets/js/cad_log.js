@@ -55,96 +55,62 @@ function handleSubmit() {
             alert('As senhas não coincidem.');
             return;
         }
-        cadastro();
-        sessionStorage.setItem('userId', userId);
+        cadastro(email, cpfCnpj, password);
     } else {
-        login();
-        sessionStorage.setItem('documento', cpfCnpj);
-        sessionStorage.setItem('userId', userId);
+        login(email, cpfCnpj, password);
     }
 }
 
 // Função de cadastro
-async function cadastro() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let documento = document.getElementById('cpfCnpj').value;
-    const emailUser = localStorage.setItem('userEmail', email);
+function cadastro(email, documento, password) {
+    const existingUsers = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    try {
-        const response = await fetch("https://planway-production.up.railway.app/api/usuarios/cadastrar", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                documento: documento,
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            alert('Cadastro realizado com sucesso!');
-            setUsuarioDocumento(data.documento);
-            toggleLayout();
-        } else {
-            alert('Esse usuario já existe');
-        }
-    } catch (error) {
-        console.error('Erro detalhado:', error);
-        alert(`Erro ao conectar ao servidor: ${error.message}`);
+    // Verificar se o usuário já existe
+    const userExists = existingUsers.find(user => user.email === email || user.documento === documento);
+    if (userExists) {
+        alert('Esse usuário já existe.');
+        return;
     }
+
+    // Criar o novo usuário e salvar no localStorage
+    const newUser = {
+        email: email,
+        documento: documento,
+        password: password
+    };
+    existingUsers.push(newUser);
+    localStorage.setItem('usuarios', JSON.stringify(existingUsers));
+
+    alert('Cadastro realizado com sucesso!');
+    toggleLayout();
 }
 
 // Função de login
-async function login() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let documento = document.getElementById('cpfCnpj').value;
+function login(email, documento, password) {
+    const existingUsers = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    try {
-        const response = await fetch("https://planway-production.up.railway.app/api/usuarios/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                documento: documento,
-                password: password,
-            })
-        });
-
-        if (response.ok) {
-            let userType;
-            if (documento.length === 11) {
-                userType = 'cliente';
-            } else if (documento.length === 14) {
-                userType = 'agencia';
-            } else {
-                alert('Login, CPF/CNPJ ou senha estão incorretos');
-                return;
-            }
-
-            // Armazenar informações do login
-            sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('userType', userType);
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userDocumento', documento);
-
-            alert('Login realizado com sucesso!');
-            window.location.href = 'home.html';
-        } else {
-            const errorMessage = await response.text();
-            alert(`Erro ao logar: ${errorMessage}`);
-        }
-
-    } catch (error) {
-        console.error('Erro detalhado:', error);
-        alert(`Erro ao conectar ao servidor: ${error.message}`);
+    // Buscar o usuário no localStorage
+    const user = existingUsers.find(user => user.email === email && user.documento === documento && user.password === password);
+    if (!user) {
+        alert('Login, CPF/CNPJ ou senha estão incorretos.');
+        return;
     }
+
+    let userType;
+    if (documento.length === 11) {
+        userType = 'cliente';
+    } else if (documento.length === 14) {
+        userType = 'agencia';
+    }
+
+    // Armazenar informações do login
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('userType', userType);
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userDocumento', documento);
+
+    alert('Login realizado com sucesso!');
+    window.location.href = 'home.html';
 }
 
 initEventListeners();
