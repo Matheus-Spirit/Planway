@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    ajustarInterface()
     const monthBR = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -314,4 +315,11 @@ document.addEventListener('DOMContentLoaded', function() {
         displayEvents();
     };
     
+    function ajustarInterface() {
+    if (tipoUsuario === "cliente") {
+        const calendario = document.querySelector(".calendario");
+            calendario.style.display = "none";
+    }
+
+}
 });

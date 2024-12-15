@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +10,42 @@
     <link rel="stylesheet" href="./assets/css/calendario.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="index.html">PlanWay</a>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">PlanWay</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="home.html">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html" onclick="logout()">Sair</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#my-excursions">Minhas Excursões</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#reports">Relatórios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#settings">Configurações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Sair</a>
+                </li>
             </ul>
         </div>
     </nav>
-    <div id="alert-container"></div>
+
     <main>
         <div class="conteudo">
-            <div class="calendario">
+            <div class ="calendario">
                 <header>
-                    <h2 id="mes" style="color:white">Abril</h2>
-                    <a class="btn-ant" id="btn-prev" href="javascript:void(0)">
-                        < </a>
-                            <a class="btn-pro" id="btn-next" href="javascript:void(0)"> > </a>
+                <h2 id="mes"style="color:white">Abril</h2>
+                <a class="btn-ant" id="btn-ant"> < </a>
+                <a class="btn-pro" id="btn-prev"> > </a>
                 </header>
                 <table>
                     <thead>
@@ -50,10 +60,64 @@
                         </tr>
                     </thead>
                     <tbody id="dias">
-                        <!-- Dias serão preenchidos dinamicamente -->
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            
 
             <section id="event-list" class="event-list">
                 <h2 id="ano" style="text-align: center;">2024</h2>
@@ -61,54 +125,25 @@
                 <ul id="event-items"></ul>
             </section>
 
-            <!-- Modal para cadastrar evento -->
-            <div id="modal" class="modal">
+            
+            <div id="modal" class="modal"> <!-- Modal para roteiros -->
                 <div class="modal-content">
-                    <span class="close" onclick="fecharModal()">×</span>
-                    <h2 id="modal-titulo">Cadastrar Evento</h2>
-                    <form id="form-evento">
-                        <label for="eventTitle">Título</label>
-                        <input type="text" id="eventTitle" name="eventTitle" required>
-
-                        <label for="eventStartDate">Data de Início</label>
-                        <input type="date" id="eventStartDate" name="eventStartDate" required>
-
-                        <label for="eventEndDate">Data de Fim</label>
-                        <input type="date" id="eventEndDate" name="eventEndDate" required>
-
-                        <label for="eventLocation">Local</label>
-                        <input type="text" id="eventLocation" name="eventLocation" required>
-
-                        <button type="button" onclick="salvarEvento()">Salvar Evento</button>
+                    <span class="close">&times;</span>
+                    <h3>Cadastrar Evento</h3>
+                    <form id="eventForm">
+                        <label for="eventTitle">Título:</label>
+                        <input type="text" id="eventTitle" class="form-control" required>
+                        <label for="eventStartDate">Data de Início:</label>
+                        <input type="date" id="eventStartDate" class="form-control" required>
+                        <label for="eventEndDate">Data de Fim:</label>
+                        <input type="date" id="eventEndDate" class="form-control" required>
+                        <label for="eventLocation">Local:</label>
+                        <input type="text" id="eventLocation" class="form-control" required>
+                        <button type="submit" class="btn btn-outline-primary">Salvar Evento</button>
                     </form>
                 </div>
             </div>
-
-            <div id="modal-update" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="fecharModalUpdate()">&times;</span>
-                    <h2 id="modal-titulo">Atualizar Evento</h2>
-                    <label for="eventTitle">Título</label>
-                    <input type="text" id="eventTitle" name="eventTitle" required>
-
-                    <label for="eventLocation">Local</label>
-                    <input type="text" id="eventLocation" name="eventLocation" required>
-
-                    <label for="eventStartDate">Data de Início</label>
-                    <input type="date" id="eventStartDate" name="eventStartDate" required>
-
-                    <label for="eventEndDate">Data de Fim</label>
-                    <input type="date" id="eventEndDate" name="eventEndDate" required>
-
-                    <!-- Campo oculto para armazenar o ID do roteiro -->
-                    <input type="hidden" id="updateRoteiroId" name="updateRoteiroId">
-
-                    <button onclick="salvarOuAtualizarEvento()">Salvar</button>
-                </div>
-            </div>
-
-            <!-- Modal para atividades
-            <div id="activityModal" class="modal">
+            <div id="activityModal" class="modal"> <!-- Modal para atividades -->
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h3>Adicionar Atividade</h3>
@@ -124,19 +159,16 @@
                         <button type="submit" class="btn btn-outline-primary">Salvar Atividade</button>
                     </form>
                 </div>
-            </div> -->
+            </div>            
 
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Footer -->
+        <footer class="footer text-white text-center mt-5">
+            <p>&copy; 2024 PlanWay. Todos os direitos reservados.</p>
+        </footer>
+        
     <script src="./assets/js/calendario.js"></script>
 </body>
-
 </html>
