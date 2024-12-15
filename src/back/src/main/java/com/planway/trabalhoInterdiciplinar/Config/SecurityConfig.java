@@ -1,7 +1,5 @@
 package com.planway.trabalhoInterdiciplinar.Config;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +10,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 import com.planway.trabalhoInterdiciplinar.Security.JWTAuthenticationFilter;
 import com.planway.trabalhoInterdiciplinar.Security.JWTUtil;
 import com.planway.trabalhoInterdiciplinar.Service.UserDetailsServiceImp;
@@ -33,6 +31,7 @@ public class SecurityConfig {
     private JWTUtil jwtUtil;
 
     private static final String[] PUBLIC_MATCHERS = {"/"};
+
     private static final String[] PUBLIC_MATCHERS_POST = {
         "/api/usuarios/cadastrar",
         "/api/usuarios/login",
@@ -52,15 +51,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .authorizeHttpRequests(authz -> authz
+        http.cors() // Habilita CORS usando a configuração do WebConfig
+            .and()
+            .csrf().disable()
+            .authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
-                .anyRequest().permitAll()
-                )
-                .sessionManagement(session -> session
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
+            );
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager, this.jwtUtil));
         return http.build();
     }
